@@ -1,0 +1,26 @@
+﻿@model IEnumerable<AdelfyStore.Models.sp_Accounts_Result>
+@{
+                /**/
+
+                if (Model.Count() == 0)
+                {
+                    <h4>No records found</h4>
+                }
+                else
+                {
+                    foreach (var account in Model)
+                    {
+                        <a href="#">
+                            <div class="user-img">
+                               
+                                <img src="~/Content/Images/user-image-.png" alt="user" class="img-circle"> <span class="profile-status online pull-right"></span>
+                            </div>
+                            <div class="mail-contnet">
+                                <h5>@account.OrderByName</h5> <span class="mail-desc">@account.Email</span><span class="mail-desc">@account.Phone</span>
+                            </div>
+                        </a>
+                    }
+                    <a class="btn btn-success pull-right m-t-20" href="@Url.Action("NewAccounts","Home")">More Customer Accounts</a>
+                }
+}
+

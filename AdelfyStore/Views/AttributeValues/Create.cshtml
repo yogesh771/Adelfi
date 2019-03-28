@@ -1,0 +1,102 @@
+﻿@model AdelfyStore.Models.TblAttributeValue
+@using AdelfyStore.Models;
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row page-titles">
+        <div class="col-md-5 col-8 align-self-center">
+            <h3 class="text-themecolor m-b-0 m-t-0">Add Attribute Values</h3>
+            <!-- <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                <li class="breadcrumb-item active">Add Store</li>
+            </ol> -->
+        </div>
+        <div class="col-md-7 text-right">
+            <a href="@Url.Action("Index", "Attributes")" class="btn waves-effect waves-light btn-danger hidden-sm-down  m-r-5"> Back To Attributes</a>
+            <a href="@Url.Action("Index", "AttributeValues")" class="btn waves-effect waves-light btn-danger hidden-sm-down"> Back To List</a>
+        </div>
+    </div>
+    <div class="card w-50-m-0auto">
+        <div class="card-block">
+            <div class="row">
+                @using (Html.BeginForm("Create", "AttributeValues", FormMethod.Post, new { @class = "form-horizontal form-material" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="p-l-10 p-b-20"><span>All (*) marked fields are mandatory</span></div>
+                    <div class="form-group">
+                        <label class="col-sm-12">@Html.LabelFor(model => model.AttributeId) <span class="text-danger">*</span></label>
+                        <div class="col-sm-12">
+                            @{if (Model != null && Model.AttributeId != null && Model.AttributeId != 0)
+                                {
+                                    @Html.DropDownList("AttributeId", null, htmlAttributes: new { @class = "form-control" })
+                                }
+                                else
+                                {
+                                    @Html.DropDownListFor(model => model.AttributeId, new SelectList(ViewBag.AttributeId, "AttributeId", "Attribute"), " Attribute ", new { @class = "form-control form-control-line" })
+                                }
+                            }
+                            @Html.ValidationMessageFor(model => model.AttributeId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-12">@Html.LabelFor(model => model.value)<span class="text-danger">*</span></label>
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.value, new { htmlAttributes = new { @class = "form-control form-control-line" } })
+                            @Html.ValidationMessageFor(model => model.value, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-12"> @Html.LabelFor(model => model.orderNo) <span class="text-danger">*</span></label>
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.orderNo, new { htmlAttributes = new { @Value = "0", @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.orderNo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <div class="form-group text-right">
+                            <input type="submit" value="Save" class="btn btn-success" />
+                        </div>
+                    </div>
+
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#value').blur(function () {
+       
+        var v = $('#AttributeId').val();
+        var value = $('#value').val();
+        debugger
+        if (v != undefined && value != '') {
+            $.ajax({
+                type: 'GET',
+                url: "/JavaScript/IsAttributevalueExists",
+                data: { 'value': value, 'id': v },
+                success: function (result) {
+                    debugger
+                    if (!result) {
+                        swal("Alert !", "Value already exists ", "error");
+                    }
+                }
+            })
+        }
+       
+    })
+</script>
+
+<script type="text/javascript">
+    $('#orderNo').change(function () {
+        if ($('#orderNo').val() < 1) {
+            $('#orderNo').val("0")
+        }
+    });
+</script>

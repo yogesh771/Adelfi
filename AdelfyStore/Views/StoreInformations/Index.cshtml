@@ -1,0 +1,141 @@
+﻿@model IEnumerable<AdelfyStore.Models.TblStoreInformation>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+
+    <div class="row page-titles">
+        <div class="col-md-5 col-8 align-self-center">
+            <h3 class="text-themecolor m-b-0 m-t-0">Stores</h3>
+            <!-- <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                <li class="breadcrumb-item active">Stores</li>
+            </ol> -->
+        </div>
+        <div class="col-md-7 col-4 align-self-center">
+            <a href="@Url.Action("Create", "StoreInformations")" class="btn waves-effect waves-light btn-danger pull-right hidden-sm-down"> Add Store</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- column -->
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-block">
+                    <div class="table-responsive">
+					 @{
+                            if (Model.Count() == 0)
+                            {
+                                <h4>No records found</h4>
+                            }
+                            else
+                            {
+                        <table id="MyTable" class="table table-border table-hover">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.StoreName)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.CompanyName)
+                                    </th>
+                                    
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.SalesPerson)
+                                    </th>
+                                    <!-- <th>
+                                        @Html.DisplayNameFor(model => model.StoreURL)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.ServiceEmail)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.ServicePhone)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.StoreActiveDate)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.StoreDeactiveDate)
+                                    </th>
+                                   
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.IsActive)
+                                    </th>
+
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.CreatedDate)
+                                    </th> -->
+
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                           
+                            <tbody>
+                               
+
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.StoreName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.CompanyName)
+                                           
+                                        </td>
+                                       
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.SalesPerson)
+                                        </td>
+                                        <!-- <td>
+                                            @Html.DisplayFor(modelItem => item.StoreURL)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ServiceEmail)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ServicePhone)
+                                        </td>
+                                        <td>
+                                            @item.StoreActiveDate.ToString("MM/dd/yyyy")
+                                        </td>
+                                        <td>
+                                            @item.StoreDeactiveDate.ToString("MM/dd/yyyy")
+                                        </td>
+
+                                       
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.IsActive)
+                                        </td>
+
+                                        <td>
+                                            @item.CreatedDate.ToString("MM/dd/yyyy")
+                                        </td> -->
+                                        
+                                        <td>
+                                            @{ var url = "http://" + @item.StoreURL + ".crastores.com";}
+                                            <a class="btn waves-effect waves-light btn-info hidden-sm-down m-r-5" target="_blank" href=@url><i class="fas fa-globe"></i></a>
+                                            <a class="btn waves-effect waves-light btn-success hidden-sm-down m-r-5" href="@Url.Action("Edit", "StoreInformations", new { id = item.StoreId })"><i class="fas fa-pencil-alt"></i></a>
+                                            <a class="btn waves-effect waves-light btn-danger hidden-sm-down" href="javascript:void(0)" onclick="RecordDelete(@item.StoreId,'TblStoreInformation')"><i class="fas fa-trash-alt"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+						}
+					}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+ <script>
+    $(function(){
+        $("#MyTable").dataTable();
+    })
+  </script>

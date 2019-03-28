@@ -1,0 +1,88 @@
+﻿@model IEnumerable<AdelfyStore.Models.TblStoreInformation>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+
+    <div class="row page-titles">
+        <div class="col-md-5 col-8 align-self-center">
+            <h3 class="text-themecolor m-b-0 m-t-0">Accounts</h3>
+            <!-- <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                <li class="breadcrumb-item active">Products</li>
+            </ol> -->
+        </div>
+      
+    </div>
+
+    <div class="row">
+        <!-- column -->
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-block">
+                    <div class="table-responsive">
+                        @{
+                            if (Model.Count() == 0)
+                            {
+                                <h4>No records found</h4>
+                            }
+                            else
+                            {
+                                <h4>Total Charges $ @ViewBag.totalPrice</h4> 
+                                <table id="MyTable" class="table table-border table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.StoreName)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.CompanyName)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.SalesPerson)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.CreatedDate)
+                                            </th>
+                                            <th>Charges</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.StoreName)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.CompanyName)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.SalesPerson)
+                                            </td>
+                                            <td>
+                                                @item.CreatedDate.ToString("MM/dd/yyyy")
+                                            </td>
+                                            <td>
+                                                <span>$</span>  @Html.DisplayFor(modelItem => item.storeCreationFee)
+                                            </td>
+                                        </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function(){
+        $("#MyTable").dataTable();
+    })
+</script>

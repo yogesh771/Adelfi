@@ -1,0 +1,50 @@
+﻿@model AdelfyStore.Models.TblStoreFee
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row page-titles">
+        <div class="col-md-5 col-8 align-self-center">
+            <h3 class="text-themecolor m-b-0 m-t-0">Add Store Charge</h3>
+           
+        </div>
+        <div class="col-md-7 col-4 align-self-center">
+
+            <a href="@Url.Action("Index", "setupstorefee")" class="btn waves-effect waves-light btn-danger pull-right hidden-sm-down"> Back To List</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-xlg-12 col-md-12">
+            <div class="card w-50-m-0auto">
+                <div class="card-block">
+
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="p-l-10 p-b-20"><span>All (*) marked fields are mandatory</span></div>
+                        <div class="form-group">
+                            <label class="col-md-12">
+                                @Html.LabelFor(model => model.Fee) <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.Fee, new { htmlAttributes = new { @class = "form-control form-control-line" } })
+                                @Html.ValidationMessageFor(model => model.Fee, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+                       
+                            <div class="form-group">
+                                <div class="col-sm-12 text-right">
+                                    <input type="submit" value="Save" class="btn btn-success" />
+                                </div>
+                            </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+</div>

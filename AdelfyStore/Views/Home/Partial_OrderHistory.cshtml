@@ -1,0 +1,85 @@
+﻿
+@model IEnumerable<AdelfyStore.Models.TblOrderHistory>
+
+
+
+<div class="table-responsive">
+    @{
+        if (Model.Count() == 0)
+        {
+            <h4>No records found</h4>
+        }
+        else
+        {
+            <table id="MyTable" class="table table-border table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.OrderID)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.OrderByName)
+                        </th>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.TblProduct.ProductName)
+                        </th>
+
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.TblStoreInformation.StoreName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TblOrderStatu.Status)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.CreatedDate)
+                        </th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.OrderID)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.OrderByName)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TblProduct.ProductName)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TblStoreInformation.StoreName)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TblOrderStatu.Status)
+                            </td>
+
+                            <td>
+                                @item.CreatedDate.ToString("MM/dd/yyyy")
+                            </td>
+                            <td>
+                                <a class="btn waves-effect waves-light btn-info hidden-sm-down" href="@Url.Action("Details", "ReportOrderHistories", new { id = item.OrderID })"><i class="fas fa-eye"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <hr />
+            <a class="btn btn-success pull-right m-b-20" href="@Url.Action("Orders","ReportOrderHistories")">Order History</a>
+        }
+    }
+</div>
+
+               
+@*<script>
+    $(function(){
+        $("#MyTable").dataTable();
+    })
+</script>*@

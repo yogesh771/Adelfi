@@ -1,0 +1,62 @@
+﻿@*@model List<AdelfyStore.Models.TblProductAttribute>
+
+    @{ var DistinctattributeId = Model.Select(s => s.AttributeId).Distinct().ToList();
+        string Attributename = "";
+        foreach (var attributeid in DistinctattributeId)
+        {
+            var attrName = Model.Select(e => new { e.TblAttribute.Attribute, e.TblAttribute.AttributeId }).Where(e => e.AttributeId == attributeid).FirstOrDefault();
+
+            Attributename = attrName.Attribute;
+            <div class="col-md-12">
+                <div class="label">
+                    @Attributename
+                </div>
+            </div>
+            <div class="col-md-12 m-b-10 float-l">
+                <input type="text" id="txt_@attributeid" class="form-control col-md-10 m-r-5 float-l" />
+                <input type="button" name="btnAddValues" class="btn float-l text-center col-md-1 btn-success" value="Add" onclick="addvalue(@attributeid)" />
+            </div>
+            foreach (var productAttribute in Model.Where(e=>e.AttributeId== attrName.AttributeId))
+            {
+            <div class="col-md-2 float-l m-b-10 text-center border-r-custom">
+                <span class="col-md-12 m-0">@productAttribute.MeasurementUnits</span>
+                 <a class="custom-trash" href="javascript:void(0)" onclick="RecordDelete(@productAttribute.ProductAttributeID,'TblProductsAttributes')">
+                     <i class="fas fa-trash-alt"></i>
+                 </a>
+            </div>
+
+            }
+            <div class="col-md-12"><hr/></div>
+        }
+
+    }*@
+
+
+
+@model List<AdelfyStore.Models.TblProductAttribute>
+
+@{ var DistinctattributeId = Model.Select(s => s.AttributeId).Distinct().ToList();
+    string Attributename = "";
+    foreach (var attributeid in DistinctattributeId)
+    {
+        var attrName = Model.Select(e => new { e.TblAttribute.Attribute, e.TblAttribute.AttributeId }).Where(e => e.AttributeId == attributeid).FirstOrDefault();
+
+        Attributename = attrName.Attribute;
+        <div class="col-md-3">
+            <div class="label">
+                @Attributename
+            </div>
+        </div>
+       
+        foreach (var productAttribute in Model.Where(e => e.AttributeId == attrName.AttributeId))
+        {
+            <div class="col-md-2 float-l m-b-10 text-center border-r-custom">
+                <span class="col-md-12 m-0">@productAttribute.MeasurementUnits</span>
+            </div>
+
+        }
+        <div class="col-md-12"><hr /></div>
+    }
+
+}
+

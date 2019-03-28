@@ -1,0 +1,273 @@
+﻿@using AdelfyStore.Models;
+@{ var Domainpath = BaseUtil.GetWebConfigValue("DomainUrl");}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Adelfi</title>
+    <link href="~/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- chartist CSS -->
+    <link href="~/assets/plugins/chartist-js/dist/chartist.min.css" rel="stylesheet">
+    <link href="~/assets/plugins/chartist-js/dist/chartist-init.css" rel="stylesheet">
+    <link href="~/assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.css" rel="stylesheet">
+    <link href="~/assets/plugins/c3-master/c3.min.css" rel="stylesheet">
+    <link href="~/css/style.css" rel="stylesheet">
+    <link href="~/css/colors/blue.css" id="theme" rel="stylesheet">
+    @*<link href="~/Content/bootstrap.min.css" rel="stylesheet" />*@
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" />
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/bootbox.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <!-- <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css"> -->
+    <link href="~/vendor/sweetalert/sweetalert.css" rel="stylesheet" />
+    <script src="~/vendor/sweetalert/sweetalert.js"></script>
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
+	
+	</head>
+<body class="fix-header fix-sidebar card-no-border">
+
+    <div class="preloader">
+        <svg class="circular" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+        </svg>
+    </div>
+
+    <div id="main-wrapper">
+
+        <header class="topbar">
+            <nav class="navbar top-navbar navbar-toggleable-sm navbar-light">
+                <!-- ============================================================== -->
+                <!-- Logo -->
+                <!-- ============================================================== -->
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="@Url.Action("Index","Home")">
+                        <img src="@Domainpath/images/icons/logo-2.jpg" alt="homepage" class="light-logo" />
+                    </a>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Logo -->
+                <!-- ============================================================== -->
+                <div class="navbar-collapse">
+                    <!-- ============================================================== -->
+                    <!-- toggle and nav items -->
+                    <!-- ============================================================== -->
+                    <ul class="navbar-nav mr-auto mt-md-0">
+                        <!-- This is  -->
+                        <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark" href="javascript:void(0)"><i class="mdi mdi-menu"></i></a> </li>
+                        <!-- ============================================================== -->
+                        <!-- Search -->
+                        <!-- ============================================================== -->
+                    </ul>
+                    <!-- ============================================================== -->
+                    <!-- User profile and search -->
+                    <!-- ============================================================== -->
+                    <ul class="navbar-nav my-lg-0">
+                    <!-- ============================================================== -->
+                    <!-- Profile -->
+                    <!-- ============================================================== -->
+                        <li class="nav-item dropdown">
+                            <a href="@Url.Action("SignOut","Home")" class="btn waves-effect waves-light btn-danger pull-right hidden-sm-down"> Sign Out</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+        <aside class="left-sidebar">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar">
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+                        <li>
+                            <a class="waves-effect waves-dark" href="@Url.Action("Index","Home")" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span></a>
+                        </li>
+                        <li>
+                            <a class="waves-effect waves-dark" href="@Url.Action("Index","StoreInformations")" aria-expanded="false"><i class="mdi mdi-store"></i><span class="hide-menu">Stores</span></a>
+                        </li>
+                        <li>
+                            <a class="waves-effect waves-dark" href="@Url.Action("Orders","ReportOrderHistories")" aria-expanded="false"><i class="mdi mdi-basket-fill"></i><span class="hide-menu">Orders</span></a>
+                        </li>
+                        <li>
+                            <a class="waves-effect waves-dark" href="@Url.Action("products","Products")" aria-expanded="false"><i class="mdi mdi-widgets"></i><span class="hide-menu">Products</span></a>
+                        </li>
+                        <li>
+                            <a class="waves-effect waves-dark" href="@Url.Action("accounts","StoreInformations")" aria-expanded="false"><i class="mdi mdi-widgets"></i><span class="hide-menu">Accounts</span></a>
+                        </li>
+                        <li class="">
+                            <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-settings"></i><span class="hide-menu">Settings </span></a>
+                            <ul aria-expanded="false" class="collapse" style="height: 10px;">
+                                <li>
+                                    <a href="@Url.Action("Index","CompanyTypes")" aria-expanded="false"><span class="hide-menu">Company Types</span></a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("Index","Suppliers")" aria-expanded="false"><span class="hide-menu">Suppliers</span></a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("Index","ProductCategories")" aria-expanded="false"><span class="hide-menu">Product Categories</span></a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("Index","Attributes")" aria-expanded="false"><span class="hide-menu">Attributes</span></a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("Index","AttributeValues")" aria-expanded="false"><span class="hide-menu">&nbsp;&nbsp; - Attribute Values</span></a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("Index","OrderStatus")" aria-expanded="false"><span class="hide-menu">Order Status</span></a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("Index","setupstorefee")" aria-expanded="false"><span class="hide-menu">Set-Up Store Charge</span></a>
+                                </li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                   
+                </nav>
+                <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+        </aside>
+
+        <div class="page-wrapper">
+            @RenderBody()
+            <footer class="footer"> © 2019 CRA Stores. Powered by <a href="https://www.camerareadyart.com/" target="_blank">CAMERAReadyArt.com</a> </footer>
+
+        </div>
+
+    </div>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('TextArea').summernote(
+                {
+                    height: 150,                
+                    minHeight: 100,            
+                    codemirror: {
+                        theme: 'default'
+                    }
+                }
+            )
+        })
+        $.validator.setDefaults({
+            ignore: ":hidden:not(.post-content)"
+        });
+    </script>
+    @*<script src="~/assets/plugins/jquery/jquery.min.js"></script>*@
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="~/assets/plugins/bootstrap/js/tether.min.js"></script>
+    @*<script src="~/assets/plugins/bootstrap/js/bootstrap.min.js"></script>*@
+
+
+
+    
+    <script src="~/js/jquery.slimscroll.js"></script>
+    <script src="~/js/waves.js"></script>
+    <script src="~/js/sidebarmenu.js"></script>
+    <!--stickey kit -->
+    <script src="~/assets/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
+    <!--Custom JavaScript -->
+    <script src="~/js/custom.min.js"></script>
+    <!-- ============================================================== -->
+    <!-- This page plugins -->
+    <!-- ============================================================== -->
+    <!-- chartist chart -->
+    <script src="~/assets/plugins/chartist-js/dist/chartist.min.js"></script>
+    <script src="~/assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.min.js"></script>
+    <!--c3 JavaScript -->
+    <script src="~/assets/plugins/d3/d3.min.js"></script>
+    <script src="~/assets/plugins/c3-master/c3.min.js"></script>
+    <!-- Chart JS -->
+    <script src="~/js/dashboard1.js"></script>
+    <script type="text/javascript" src="~/vendor/sweetalert/sweetalert.min.js"></script>
+    <script src="~/Scripts/DeleteRecord.js"></script>
+    <script>
+        
+        if ('@TempData["msg"]' != '') {
+            if ('@TempData["msg"]' == '1') {
+                swal("Success !", "Record Saved ", "success");
+            }
+            else if ('@TempData["msg"]' == '2') {
+                swal("Success !", "Record Updated ", "success");
+
+            }
+            else if ('@TempData["msg"]' == '0') {
+                swal("Alert !", "Record not saved ", "success");
+            }
+            $.ajax({
+                type: 'GET',
+                url: "/Client/BlankTempData",
+                success: function (result) {
+                },
+            })
+        }
+    </script>
+
+</body>
+</html>
+
+
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            //Get reference of FileUpload.
+            var fileUpload = document.getElementById("photoA");
+            if (fileUpload.value.length > 0) {
+                //Check whether the file is valid Image.
+                var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(.jpg|.png|.gif)$");
+                if (regex.test(fileUpload.value.toLowerCase())) {
+                    var reader = new FileReader();
+                    var s = fileUpload.files[0];
+                    reader.readAsDataURL(s);
+                    reader.onload = function (e) {
+                        var image = new Image();
+                        image.src = e.target.result;
+                        image.onload = function () {
+                            var reader1 = new FileReader();
+
+                            reader1.onload = function (e) {
+                                $('#pic').attr('src', e.target.result);
+                            }
+                            reader1.readAsDataURL(input.files[0]);
+
+                        };
+                    }
+                }
+                else {
+
+                    bootbox.alert({
+                        title: "Alert !",
+                        message: 'Please select .jpg,.png,.gif'
+                    });
+                    return false;
+                }
+            }
+
+        }
+    }
+
+    $("#photoA").change(function () {
+        readURL(this);
+    });
+</script>
+<script type="text/javascript">
+    function slugify(ElementID, targetElementID) {
+
+        var url = $(targetElementID).val()
+        if (url == "") {
+            var newurl = $(ElementID).val();
+            newurl = newurl.replace(/[^A-Z0-9]+/ig, "-");
+            newurl = newurl.replace(" ", "-");
+            $(targetElementID).val(newurl.toLowerCase())
+        }
+    }
+
+</script>
+  <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>

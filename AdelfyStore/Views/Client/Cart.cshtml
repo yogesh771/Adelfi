@@ -1,0 +1,143 @@
+﻿
+@model AdelfyStore.Models.checkOutModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+@using (Html.BeginForm("Cart", "Client", FormMethod.Post, new { @id = "frm", @class = "form-horizontal form-material" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<section class="cart float-l w-full bgwhite p-t-70 p-b-100">
+    <div class="container">
+        <input type="hidden" id="hdnToatlCount" name="productCount" />
+        <!-- Cart item -->
+        <div class="container-table-cart pos-relative">
+            <div class="wrap-table-shopping-cart bgwhite">
+                <table class="table-shopping-cart">
+                    <thead>
+                        <tr class="table-head">
+                            <th class="column-1"></th>
+                            <th class="column-2">Product</th>
+                            <th class="column-3">Price</th>
+                            <th class="column-4 p-l-70">Quantity</th>
+                            <th class="column-5">Total Price</th>
+                            <th class="column-6">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tblbodyID"></tbody>
+                </table>
+            </div>
+        </div>
+
+
+        <div class="bo9 w-size20 p-l-40 p-r-40 p-t-30 p-b-38 m-t-30 m-r-0 float-l p-lr-15-sm">
+		
+            <div class="flex-w flex-sb p-t-15 p-b-20">
+                <span class="s-text18 w-size17 w-full-sm">
+                    Personal Info <span class="text-danger">*</span>
+                </span>
+
+                <div class="w-size16 w-full-sm">
+                    <div class="size15 m-b-12">
+                        @Html.EditorFor(model => model.EmployeeName, new { htmlAttributes = new { @class = "form-control sizefull s-text7 p-l-15 p-r-15", @placeholder = "Full Name" } })
+                        @Html.ValidationMessageFor(model => model.EmployeeName, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="size15 m-b-22">
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control sizefull s-text7 p-l-15 p-r-15", @placeholder = "Email" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="size15 m-b-22">
+                        @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control sizefull s-text7 p-l-15 p-r-15", @placeholder = "Phone" } })
+                        @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="size15 m-b-22">
+                        @Html.EditorFor(model => model.comments, new { htmlAttributes = new { @class = "form-control sizefull s-text7 p-l-15 p-r-15", @placeholder = "Comments" } })
+                        @Html.ValidationMessageFor(model => model.comments, "", new { @class = "text-danger" })
+                    </div>
+
+                </div>
+            <hr />
+                <span class="s-text18 w-size17 w-full-sm">
+                    Shipping Address <span class="text-danger">*</span>
+                </span>
+
+                <div class="w-size16 w-full-sm">
+                    <div class="size15 m-b-12">
+                        @Html.EditorFor(model => model.ShippingAddress, new { htmlAttributes = new { @class = "form-control sizefull s-text7 p-l-15 p-r-15", @placeholder = "Shipping Address" } })
+                        @Html.ValidationMessageFor(model => model.ShippingAddress, "", new { @class = "text-danger" })
+
+                    </div>
+
+                    <div class="size15 m-b-22">
+                        <select class="form-control sizefull s-text7 p-l-15 p-r-15" name="country" id="country" style="height:3rem">
+                            <option value="US">US</option>
+                        </select>
+                    </div>
+
+                    <div class="size15 m-b-22">
+                        @Html.EditorFor(model => model.state, new { htmlAttributes = new { @class = "sizefull form-control s-text7 p-l-15 p-r-15", @placeholder = "State" } })
+                        @Html.ValidationMessageFor(model => model.state, "", new { @class = "text-danger" })
+
+                    </div>
+
+                    <div class="size15 m-b-22">
+                        @Html.EditorFor(model => model.postcode, new { htmlAttributes = new { @class = "sizefull form-control s-text7 p-l-15 p-r-15", @placeholder = "Zip" } })
+                        @Html.ValidationMessageFor(model => model.postcode, "", new { @class = "text-danger" })
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <!-- Total -->
+        <div class="bo9 w-size19 p-l-40 p-r-40 p-t-30 p-b-38 m-t-30 m-r-0 m-l-auto p-lr-15-sm">
+            <h5 class="m-text20 p-b-24">
+                Cart Total
+            </h5>
+
+            <!--  -->
+            @*<div class="flex-w flex-sb-m p-b-12">
+                <span class="s-text18 w-size19 w-full-sm">
+                    Subtotal:
+                </span>
+
+                <span class="m-text21 w-size20 w-full-sm">
+                    $<i id="CartSubTotalPrice" name="TotalSubPrice"></i>
+                </span>
+            </div>*@
+            <input type="hidden" id="CartSubTotalPrice" name="TotalSubPrice"></input>
+            <!--  -->
+            
+
+            <!--  -->
+            <div class="flex-w flex-sb-m p-t-26 p-b-30">
+                <span class="m-text22 w-size19 w-full-sm">
+                    Total:
+                </span>
+
+                <span class="m-text21 w-size20 w-full-sm">
+                    $<i name="TotalPrice" id="carTotalPrice"></i>
+                </span>
+            </div>
+
+            <div class="size15 trans-0-4">
+                <!-- Button -->
+                <button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4" id="formSubmitButton">
+                    Proceed to Checkout
+                </button>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" name="ProductId" id="ProductId" />
+    <input type="hidden" name="productAttribute" id="productAttribute" />
+    <input type="hidden" name="ProductPrice" id="ProductPrice" />
+    <input type="hidden" name="productQuantity" id="productQuantity" />
+    <input type="hidden" name="TotalSubPrice" id="TotalSubPrice" />
+    <input type="hidden" name="TotalPrice" id="TotalPrice" />
+
+</section>
+}

@@ -1,0 +1,39 @@
+﻿
+@model List<AdelfyStore.Models.TblProductAttribute>
+
+@{ var DistinctattributeId = Model.Select(s => s.AttributeId).Distinct().ToList();
+    string Attributename = "";
+    var i = 1;
+    <input type="hidden" id="hdnCountAttribute" value="@DistinctattributeId.Count" />
+
+    foreach (var attributeid in DistinctattributeId)
+    {
+        var attrName = Model.Select(e => new { e.TblAttribute.Attribute, e.TblAttribute.AttributeId }).Where(e => e.AttributeId == attributeid).FirstOrDefault();
+
+        Attributename = attrName.Attribute;
+        <input type="hidden" value="@attrName.Attribute" id="hdnAttribute_@i" />
+        <div class="flex-m flex-w p-b-5">
+            <div class="s-text18 t-center">@Attributename</div>
+        </div>
+
+        <div class="rs2-select2 rs3-select2 bo4 of-hidden w-size100 m-b-20">
+
+
+            <select class="selection-2 form-control" name="size" id="select_@i">
+                <option value="1">@attrName.Attribute</option>
+                @{ foreach (var productAttribute in Model.Where(e => e.AttributeId == attrName.AttributeId))
+                    {
+                        <option value="@productAttribute.MeasurementUnits">@productAttribute.MeasurementUnits</option>
+
+                    }
+                }
+            </select>
+        </div>
+        i = i + 1;
+    }
+
+}
+
+
+
+

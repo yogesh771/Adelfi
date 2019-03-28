@@ -1,0 +1,277 @@
+﻿@model IEnumerable<AdelfyStore.Models.TblProduct>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+@using AdelfyStore.Models;
+@{ var Domainpath = BaseUtil.GetWebConfigValue("DomainUrl").ToString();}
+<section class="slide1">
+    <div class="wrap-slick1">
+        <div class="slick1">
+            <div class="item-slick1 item1-slick1" style="background-image: url(@Domainpath/@ViewBag.banner);"></div>
+        </div>
+    </div>
+</section>
+
+<!-- Banner -->
+@{ if (Model.Where(e => e.ProductCategoryId == 1).Count() > 0)
+    {
+        <section class="banner bgwhite p-t-50">
+
+            <div class="container">
+                <div class="sec-title p-b-45">
+                    <h3 class="m-text5 bo7 p-b-5 t-center">
+                        @{var catName = Model.Where(e => e.ProductCategoryId == 1).Select(e => new { e.TblProductCategory.CategoryName }).FirstOrDefault();}
+                        @catName.CategoryName.ToString().ToUpper()
+                    </h3>
+                </div>
+                <div class="row">
+                    @{ foreach (var product in Model.Where(e => e.ProductCategoryId == 1).OrderBy(e => e.srNumber))
+                        {
+                            <div class="col-sm-12 col-md-6 col-lg-4 p-b-50">
+                                <div class="block2">
+                                    <div class="block2-img wrap-pic-w custom of-hidden pos-relative">
+                                        @{ var i = (product.TblProductImages.Select(e => new { e.ProductImageURL, e.orderNo }).OrderBy(e => e.orderNo).FirstOrDefault()); }
+                                        @{ if (i != null)
+                                            {
+                                                <img src="@Domainpath/@i.ProductImageURL" alt="@product.productTitle">
+                                            }
+                                            else
+                                            {
+                                                <img src="" alt="@product.productTitle">
+                                            }
+                                        }
+                                        <div class="block2-overlay trans-0-4">
+
+                                            <div class="block2-btn-addcart w-size1 trans-0-4">
+                                                <!-- Button -->
+                                                <a href="@Url.Action("ProductDetails", "Client", new { title = @product.SlugURL })" class="flex-c-m size1 bg4 bo-rad-23 c-b-2 hov1 s-text1 trans-0-4">
+                                                    View Product
+                                                </a>
+                                                <a href="@Url.Action("ProductDetails", "Client", new { title = @product.SlugURL })" class="custom-button"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="block2-txt p-t-20">
+                                        <a href="@Url.Action("ProductDetails", "Client", new { title = @product.SlugURL })" class="block2-name dis-block s-text3 p-b-5">
+                                            @product.productTitle
+                                        </a>
+
+                                        @{if (@product.TblStoreInformation.PriceDispay)
+                                            { 
+                                                <span class="block2-newprice m-text8 p-r-5">
+                                                    $@product.Price.ToString()
+                                                </span>
+
+                                            }
+                                            @*else
+                                            { <span class="block2-newprice m-text8 p-r-5">
+                                                    $0
+                                                </span>
+                                            }*@
+                                        }
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        }
+
+                    }
+                </div>
+            </div>
+
+
+        </section>
+    }
+
+}
+@{ if (Model.Where(e => e.ProductCategoryId == 3).Count() > 0)
+    {
+        <section class="banner bgwhite p-t-0">
+
+            <div class="container">
+                <div class="sec-title p-b-45">
+                    <h3 class="m-text5 bo7 p-b-5 t-center">
+                        @{var catName = Model.Where(e => e.ProductCategoryId == 3).Select(e => new { e.TblProductCategory.CategoryName }).FirstOrDefault();}
+                        @catName.CategoryName.ToString().ToUpper()
+                    </h3>
+                </div>
+                <div class="row">
+                    @{ foreach (var product in Model.Where(e => e.ProductCategoryId == 3).OrderBy(e => e.srNumber))
+                        {
+                            <div class="col-sm-12 col-md-6 col-lg-4 p-b-50">
+                                <div class="block2">
+                                    <div class="block2-img wrap-pic-w custom of-hidden pos-relative">
+                                        @{ var i = (product.TblProductImages.Select(e => new { e.ProductImageURL, e.orderNo }).OrderBy(e => e.orderNo).FirstOrDefault()); }
+                                        @{ if (i != null)
+                                            {
+                                                <img src="@Domainpath/@i.ProductImageURL" alt="@product.productTitle">
+                                            }
+                                            else
+                                            {
+                                                <img src="" alt="@product.productTitle">
+                                            }
+                                        }
+
+                                        <div class="block2-overlay trans-0-4">
+
+
+                                            <div class="block2-btn-addcart w-size1 trans-0-4">
+                                                <!-- Button -->
+                                                <a href="@Url.Action("ProductDetails", "Client", new { title = @product.SlugURL })" class="flex-c-m size1 c-b-2 bg4 bo-rad-23 hov1 s-text1 trans-0-4">
+                                                    View Product
+                                                </a>
+                                                <a href="@Url.Action("ProductDetails", "Client", new { title = @product.SlugURL })" class="custom-button"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="block2-txt p-t-20">
+                                        <a href="@Url.Action("ProductDetails", "Client", new { title = @product.SlugURL })" class="block2-name dis-block s-text3 p-b-5">
+                                            @product.productTitle
+                                        </a>
+
+
+                                        @{if (@product.TblStoreInformation.PriceDispay)
+                                            { <span class="block2-newprice m-text8 p-r-5">
+                                                    $@product.Price.ToString()
+                                                </span>
+
+                                            }
+                                            @*else
+                                            { <span class="block2-newprice m-text8 p-r-5">
+                                                    $0
+                                                </span>
+
+                                            }*@
+                                        }
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+
+        </section>
+    }
+}
+<!-- New Product -->
+@{ if (Model.Where(e => e.ProductCategoryId == 2).Count() > 0)
+    {
+        <section class="newproduct bgwhite m-t-20 p-b-50">
+
+            <div class="container">
+                <div class="sec-title p-b-45">
+                    <h3 class="m-text5 bo7 p-b-5 t-center">
+                        @{var catName = Model.Where(e => e.ProductCategoryId == 2).Select(e => new { e.TblProductCategory.CategoryName }).FirstOrDefault();}
+                        @catName.CategoryName.ToString().ToUpper()
+                    </h3>
+                </div>
+
+                <!-- Slide2 -->
+                <div class="wrap-slick2">
+                    <div class="slick2">
+                        @{ foreach (var product in Model.Where(e => e.ProductCategoryId == 2).OrderBy(e => e.srNumber))
+                            {
+                                <div class="item-slick2 p-l-15 p-r-15">
+                                    <!-- Block2 -->
+                                    <div class="block2">
+                                        <div class="block2-img wrap-pic-w custom-2 of-hidden pos-relative">
+                                            @{ var i = (product.TblProductImages.Select(e => new { e.ProductImageURL, e.orderNo }).OrderBy(e => e.orderNo).FirstOrDefault()); }
+                                            @{ if (i != null)
+                                                {
+                                                    <img src="@Domainpath/@i.ProductImageURL" alt="@product.productTitle">
+                                                }
+                                                else
+                                                {
+                                                    <img src="" alt="@product.productTitle">
+                                                }
+                                            }
+
+                                            <div class="block2-overlay trans-0-4">
+
+                                                <div class="block2-btn-addcart w-size1 trans-0-4">
+                                                    <!-- Button -->
+                                                    <a href="@Url.Action("ProductDetails", "Client", new { title = @product.SlugURL })" class="flex-c-m size1 bg4 bo-rad-23 c-b-2 hov1 s-text1 trans-0-4">
+                                                        View Product
+                                                    </a>
+                                                    <a href="@Url.Action("ProductDetails", "Client", new { title = @product.SlugURL })" class="custom-button"></a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="block2-txt p-t-20">
+                                            <a href="@Url.Action("ProductDetails", "Client", new { title = @product.SlugURL })" class="block2-name dis-block s-text3 p-b-5">
+                                                @product.productTitle
+                                            </a>
+
+                                            <span class="block2-price m-text6 p-r-5">
+                                                @{if (@product.TblStoreInformation.PriceDispay)
+                                                    { <span class="block2-newprice m-text8 p-r-5">
+                                                            $@product.Price.ToString()
+                                                        </span>
+
+                                                    }
+                                                    @*else
+                                                    { <span class="block2-newprice m-text8 p-r-5">
+                                                            $0
+                                                        </span>
+
+                                                    }*@
+                                                }
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            }
+                        }
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+    }
+}
+<!-- Shipping -->
+<!-- <section class="shipping bgwhite p-t-50 p-b-50"> -->
+    <!-- <div class="flex-w p-l-15 p-r-15"> -->
+        <!-- <div class="flex-col-c w-size5 p-l-15 p-r-15 p-t-16 p-b-15 respon1"> -->
+            <!-- <h4 class="m-text12 t-center"> -->
+                <!-- Free Delivery Worldwide -->
+            <!-- </h4> -->
+
+            <!-- <a href="#" class="s-text11 t-center"> -->
+                <!-- Click here for more info -->
+            <!-- </a> -->
+        <!-- </div> -->
+
+        <!-- <div class="flex-col-c w-size5 p-l-15 p-r-15 p-t-16 p-b-15 bo2 respon2"> -->
+            <!-- <h4 class="m-text12 t-center"> -->
+                <!-- 30 Days Return -->
+            <!-- </h4> -->
+
+            <!-- <span class="s-text11 t-center"> -->
+                <!-- Simply return it within 30 days for an exchange. -->
+            <!-- </span> -->
+        <!-- </div> -->
+
+        <!-- <div class="flex-col-c w-size5 p-l-15 p-r-15 p-t-16 p-b-15 respon1"> -->
+            <!-- <h4 class="m-text12 t-center"> -->
+                <!-- Store Opening -->
+            <!-- </h4> -->
+
+            <!-- <span class="s-text11 t-center"> -->
+                <!-- Shop open from Monday to Sunday -->
+            <!-- </span> -->
+        <!-- </div> -->
+    <!-- </div> -->
+<!-- </section> -->
+

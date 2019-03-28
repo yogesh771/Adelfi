@@ -1,0 +1,54 @@
+﻿@model AdelfyStore.Models.TblOrderStatu
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row page-titles">
+        <div class="col-md-5 col-8 align-self-center">
+            <h3 class="text-themecolor m-b-0 m-t-0">Update Status </h3>
+            <!-- <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                <li class="breadcrumb-item active">Add Status </li>
+            </ol> -->
+        </div>
+        <div class="col-md-7 col-4 align-self-center">
+
+            <a href="@Url.Action("Index", "OrderStatus")" class="btn waves-effect waves-light btn-danger pull-right hidden-sm-down"> Back To List</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-xlg-12 col-md-12">
+            <div class="card w-50-m-0auto">
+                <div class="card-block">
+                     @using (Html.BeginForm("Edit", "OrderStatus", FormMethod.Post, new { @class = "form-horizontal form-material" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.OrderStatusID)
+						<div class="p-l-10 p-b-20"><span>All (*) marked fields are mandatory</span></div>
+                        <div class="form-group">
+                            <label class="col-md-12">
+                                @Html.LabelFor(model => model.Status) <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control form-control-line" } })
+                                @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="col-sm-12 text-right">
+                                <input type="submit" value="Update" class="btn btn-success" />
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

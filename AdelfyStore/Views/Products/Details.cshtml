@@ -1,0 +1,268 @@
+﻿@model AdelfyStore.Models.CompleteProductInfo
+@using AdelfyStore.Models;
+@{ var Domainpath = BaseUtil.GetWebConfigValue("DomainUrl").ToString();}
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container-fluid">
+    <div class="row page-titles">
+        <div class="col-md-5 col-8 align-self-center">
+            <h3 class="text-themecolor m-b-0 m-t-0">Product Details</h3>
+            <!-- <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                <li class="breadcrumb-item active">Store Information</li>
+            </ol> -->
+        </div>
+        <div class="col-md-7 col-4 text-right">
+            <a href="@Url.Action("Edit", "Products", new{id=Model.TblProduct.ProductID})" class="btn waves-effect waves-light btn-danger m-r-5 hidden-sm-down">Edit Product</a>
+            <a href="@Url.Action("Index", "Products", new { id = Model.TblProduct.StoreId })" class="btn waves-effect waves-light btn-danger hidden-sm-down"> Back To Products</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-block">
+                    <div class="col-md-12 store-details-inner">
+                            @Html.HiddenFor(model => model.TblProduct.ProductID)
+                            <h3>Product Information</h3>
+                            <hr/>
+                           
+                            <div class="col-md-12">                             <div class="label">
+                                @Html.DisplayNameFor(model => model.TblProduct.productTitle)
+                            </div>
+
+                            <div class="store-details">
+                                @Html.DisplayFor(model => model.TblProduct.productTitle)
+                             </div>                         </div>
+                            
+                            <div class="col-md-12">                             <div class="label">
+                                @Html.DisplayNameFor(model => model.TblProduct.sku)
+                            </div>
+
+                            <div class="store-details">
+                                @Html.DisplayFor(model => model.TblProduct.sku)
+                             </div>                         </div>
+
+
+
+                            <div class="col-md-12">                             <div class="label">
+                                @Html.DisplayNameFor(model => model.TblProduct.descriptionHtml)
+                            </div>
+
+                            <div class="store-details">
+                                @Html.Raw(Model.TblProduct.descriptionHtml)
+                             </div>                         </div>
+
+
+                            <div class="col-md-12">                             <div class="label">
+                                @Html.DisplayNameFor(model => model.TblProduct.AdditionalInforamtion)
+                            </div>
+
+                            <div class="store-details">
+                                @Html.Raw(Model.TblProduct.AdditionalInforamtion)
+                             </div>                         </div>
+                            
+
+
+                            <div class="col-md-12">                             <div class="label">
+                                @Html.DisplayNameFor(model => model.TblProduct.TblProductCategory.CategoryName)
+                            </div>
+
+                            <div class="store-details">
+                                @Html.DisplayFor(model => model.TblProduct.TblProductCategory.CategoryName)
+                             </div>                         </div>
+							 <div class="col-md-12">                             <div class="label">
+                                @Html.DisplayNameFor(model => model.TblProduct.IsActive)
+                            </div>
+
+                            <div class="store-details">
+                                @Html.DisplayFor(model => model.TblProduct.IsActive)
+                             </div>                         </div>
+                            <h3>Company Information</h3>
+                             <hr/>
+                            <div class="col-md-12">                             <div class="label">
+                                @Html.DisplayNameFor(model => model.TblProduct.TblStoreInformation.CompanyName)
+                            </div>
+
+                            <div class="store-details">
+                                @Html.DisplayFor(model => model.TblProduct.TblStoreInformation.CompanyName)
+                             </div>                         </div>
+
+                            <div class="col-md-12">                             <div class="label">
+                                @Html.DisplayNameFor(model => model.TblProduct.TblSupplier.SupplierName)
+                            </div>
+
+                            <div class="store-details">
+                                @Html.DisplayFor(model => model.TblProduct.TblSupplier.SupplierName)
+                             </div>                         </div>
+                            <div class="col-md-12">                             <div class="label">
+                                @Html.DisplayNameFor(model => model.TblProduct.CreatedDate)
+                            </div>
+
+                            <div class="store-details">
+                                @Model.TblProduct.CreatedDate.ToString("MM/dd/yyyy")
+                            </div>                         </div>
+                            <h3>Product Images</h3>
+                             <hr/>
+							 <div class="col-md-12">
+							<h5>Note: Product image size should be 720px width and 960px height. Accepted formats are JPEG and PNG.</h5>
+							 </div>
+                            <div class="col-md-12">  
+                                <div class="label m-b-20">
+                                    Browse Product Image
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="row">
+
+                                    @{ foreach (var image in Model.tblProductImages)
+                                        {
+                                        <div class="col-md-2 bo-1 order-custom-class">
+                                            <span class="full-width-c"><img src="@Domainpath/@image.ProductImageURL" height="auto" width="150" /></span>
+                                            <span class="order-label">Order No</span><input type="text" onkeypress="return onlyNumbers();" class="form-control half-width-c" name="txtOrder" value="@image.orderNo" id="@image.ProductImageId" />
+                                            <a class="custom-trash" href="javascript:void(0)" onclick="RecordDelete(@image.ProductImageId,'TblProductsImages')"><i class="fas fa-trash-alt"></i></a>
+                                        </div>
+                                        }
+                                    }
+                                    </div>
+                                </div>
+                                <div class="col-md-12 p-0 float-l m-t-20" id="divFileAdd">
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <input type="file" id="file" name="file" class="choose-input">
+                                            <a href="#" class="btn btn-success" onclick="uploadFile()">upload</a>
+                                            <a class="btn btn-success" href="javascript:void(0)" onclick="updateOrder()">Update Order</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 m-0">
+                                    <h3>Product Attribute</h3>
+                                    <hr/>
+                                </div>
+                                @Html.Action("Partial_productAttribute", new { ProductId = Model.TblProduct.ProductID })
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+     </div>
+</div>
+
+<script>
+    var url = window.location.href
+    var DomainName = "";
+    if (url.includes('www')) {
+        DomainName = 'http://www.crastores.com'
+    }
+    else {
+        DomainName = 'http://crastores.com'
+    }
+    function uploadFile() {
+       
+        debugger
+        var $file = document.getElementById('file'),
+            $formData = new FormData();
+        var id = $('#TblProduct_ProductID').val()
+        $formData.append('productID', id);
+        if ($file.files.length > 0) {
+            for (var i = 0; i < $file.files.length; i++) {
+                $formData.append('file-' + i, $file.files[i]);
+            }
+        }
+
+        $.ajax({
+            url: DomainName+'/Products/upload',
+            type: 'POST',
+            data: $formData,
+            dataType: 'json',
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                debugger
+                if (data == 1) {
+                    swal("Success !", "Record Saved ", "success").then((value) => {
+                        window.location.reload();
+                    });
+                }
+                else {
+                    swal("Alert !", "Record not saved ", "success").then((value) => {
+                        window.location.reload();
+                    });
+                }
+            }
+        });
+    }
+</script>
+
+<script>
+    function addvalue(attributeid) {
+        debugger
+        var val = $('#txt_' + attributeid).val();
+        var ProductID = $('#TblProduct_ProductID').val();
+        if (val != "") {
+            $.ajax({
+                url: DomainName+'/Products/AddProductAttributes',
+                type: 'GET',
+                data: { 'productId': ProductID, 'attribute': val, 'AttributeId': attributeid },
+                success: function (data) {
+                    debugger
+                    if (data == 1) {
+                        swal("Success !", "Record Saved ", "success").then((value) => {
+                            window.location.reload();
+                        });
+                       
+                    }
+                    else {
+                        swal("Alert !", "Record not saved ", "error").then((value) => {
+                            window.location.reload();
+                        });
+                    }
+                }
+            })
+        }
+
+    }
+</script>
+
+<script>
+    function updateOrder() {
+        debugger
+        var arr=[]
+        var ImageList = document.getElementsByName("txtOrder");
+        var len = ImageList.length
+
+        var value = '';
+
+        for (var i = 0; i < len; i++) {
+            debugger
+            value = ImageList[i].id + '-' + document.getElementById(ImageList[i].id).value;
+            arr.push(value)
+        }
+        $.ajax({
+            url: '/Products/manageImageOrder',
+            type: 'GET',
+            data: { arr: JSON.stringify(arr) },
+            success: function (data1) {
+                debugger
+                if (data1 == 1) {
+                    swal("Success !", "Record Saved ", "success")
+                }
+                else {
+                    swal("Alert !", "Record not saved ", "error")
+                }
+            }
+        })
+    }
+</script>
+<script language="JavaScript">
+    function onlyNumbers(evt) {
+        var e = event || evt; // for trans-browser compatibility
+        var charCode = e.which || e.keyCode;
+        debugger
+        if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+
+    }
+</script>

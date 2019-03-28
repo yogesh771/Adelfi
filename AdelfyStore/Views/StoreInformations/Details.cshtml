@@ -1,0 +1,166 @@
+﻿@model AdelfyStore.Models.TblStoreInformation
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row page-titles">
+        <div class="col-md-5 col-8 align-self-center">
+            <h3 class="text-themecolor m-b-0 m-t-0">Store Details</h3>
+            <!-- <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                <li class="breadcrumb-item active">Store Information</li>
+            </ol> -->
+        </div>
+        <div class="col-md-7 col-4 align-self-center">
+            <a href="@Url.Action("Index", "StoreInformations")" class="btn waves-effect waves-light btn-danger pull-right hidden-sm-down"> Back To Stores</a>
+            <!-- @Html.ActionLink("Back to List", "Index", null, new { @class = "m-r-5 btn waves-effect waves-light btn-danger pull-right hidden-sm-down" }) -->
+            @Html.ActionLink("Edit", "Edit", new { id = Model.StoreId },  new { @class = "btn waves-effect waves-light btn-danger pull-right hidden-sm-down m-r-5" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 col-sm-12">
+            <div class="card">
+                <div class="card-block">
+                    <div class="col-md-12 store-details-inner">
+                        <h3>Company Information</h3>
+                        <hr/>
+                        <div class="col-md-12">
+                            <div class="label">
+                                @Html.DisplayNameFor(model => model.CompanyName)
+                            </div>
+                            <div class="store-details">
+                                @Html.DisplayFor(model => model.CompanyName)
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="label">
+                                @Html.DisplayNameFor(model => model.TblCompanyType.CompanyType)
+                            </div>
+                            <div class="store-details">
+                                @Html.DisplayFor(model => model.TblCompanyType.CompanyType)
+                            </div>
+                        </div>
+
+                <div class="col-md-12">
+                        <div class="label">
+                            @Html.DisplayNameFor(model => model.StoreName)
+                        </div>
+
+                        <div class="store-details">
+                            @Html.DisplayFor(model => model.StoreName)
+                        </div>
+</div>
+<div class="col-md-12">
+                        <div class="label">
+                            @Html.DisplayNameFor(model => model.SalesPerson)
+                        </div>
+
+                        <div class="store-details">
+                            @Html.DisplayFor(model => model.SalesPerson)
+                        </div>
+</div>
+<div class="col-md-12">
+                        <div class="label">
+                            @Html.DisplayNameFor(model => model.StoreURL)
+                        </div>
+
+                        <div class="store-details">
+                            @Html.DisplayFor(model => model.StoreURL)
+                        </div>
+                        </div>
+                        <div class="col-md-12">
+                        <div class="label">
+                            @Html.DisplayNameFor(model => model.StoreActiveDate)
+                        </div>
+
+                        <div class="store-details">
+                            @Model.StoreActiveDate.ToString("MM/dd/yyyy")
+                        </div>
+</div>
+<div class="col-md-12">
+                        <div class="label">
+                            @Html.DisplayNameFor(model => model.StoreDeactiveDate)
+                        </div>
+
+                        <div class="store-details">
+                            @Model.StoreDeactiveDate.ToString("MM/dd/yyyy")
+                        </div>
+                        </div>
+                        <h3>Contact Details</h3>
+                        <hr/>
+<div class="col-md-12">
+                        <div class="label">
+                            @Html.DisplayNameFor(model => model.ServiceEmail)
+                        </div>
+
+                        <div class="store-details">
+                            @Html.DisplayFor(model => model.ServiceEmail)
+                        </div>
+</div>
+<div class="col-md-12">
+                        <div class="label">
+                            @Html.DisplayNameFor(model => model.ServicePhone)
+                        </div>
+
+                        <div class="store-details">
+                            @Html.DisplayFor(model => model.ServicePhone)
+                        </div>
+</div>
+                        <h3>Store Status</h3>
+                        <hr/>
+<div class="col-md-12">
+                        <div class="label">
+                            @Html.DisplayNameFor(model => model.IsActive)
+                        </div>
+
+                        <div class="store-details">
+                            @Html.DisplayFor(model => model.IsActive)
+                        </div>
+                        </div>
+                        <div class="col-md-12">
+                        <div class="label">
+                            @Html.DisplayNameFor(model => model.CreatedDate)
+                        </div>
+
+                        <div class="store-details">
+                            @Model.CreatedDate.ToString("MM/dd/yyyy")
+                        </div>
+                        </div>              
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-12">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-block text-center">
+                            <h3 class="text-left">Manage Store</h3>
+                            <hr/>
+                            <a href="@Url.Action("Index","Banners",new {id=Model.StoreId })" class="btn m-l-5 m-b-10 btn-primary">Manage Banners</a>
+                            @*<a href="@Url.Action("Index","Themes",new {id=Model.StoreId })" class="btn m-l-5 m-b-10 btn-primary">Manage Theme</a>*@
+                            <a href="@Url.Action("Index","Products",new {id=Model.StoreId })" class="btn m-l-5 m-b-10 btn-primary">Manage Products</a>
+                            <a href="@Url.Action("Index","ReportOrderHistories",new {id=Model.StoreId })" class="btn m-l-5 m-b-10 btn-primary">Order History</a>
+                            </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-block text-center">
+                            <h3 class="text-left">Reports</h3>
+                            <hr/>
+                            <a href="@Url.Action("TopViewed","Products",new {id=Model.StoreId })" class="btn m-l-5 m-b-10 btn-primary">Top Viewed</a>
+                            
+                            <a href="@Url.Action("BestSellers","Products",new {id=Model.StoreId })" class="btn m-l-5 m-b-10 btn-primary">Best Sellers</a>
+                            <a href="@Url.Action("CustomersAccounts","Products",new {id=Model.StoreId })" class="btn m-l-5 m-b-10 btn-primary">New Accounts</a>
+                              </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+     </div>
+</div>

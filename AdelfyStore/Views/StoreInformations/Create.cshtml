@@ -1,0 +1,231 @@
+﻿@model AdelfyStore.Models.TblStoreInformation
+@using AdelfyStore.Models;
+@{ var Domainpath = BaseUtil.GetWebConfigValue("DomainUrl").ToString();}
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row page-titles">
+        <div class="col-md-5 col-8 align-self-center">
+            <h3 class="text-themecolor m-b-0 m-t-0">Store</h3>
+            <!-- <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                <li class="breadcrumb-item active">Add Store</li>
+            </ol> -->
+        </div>
+        <div class="col-md-7 col-4 align-self-center">
+
+            <a href="@Url.Action("Index", "StoreInformations")" class="btn waves-effect waves-light btn-danger pull-right hidden-sm-down"> Back To Store</a>
+        </div>
+    </div>
+    <div class="row">
+            @using (Html.BeginForm("Create", "StoreInformations", FormMethod.Post, new { @class = "form-horizontal form-material", enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-7 col-sm-12">
+                            <div class="card">
+                                <div class="card-block">
+								<div class="p-l-10 p-b-30"><span>All (*) marked fields are mandatory</span></div>
+                                    <h3>Company Information</h3>
+                                    <hr />
+                                    <div class="form-group">
+                                        <label class="col-md-12">
+                                            @Html.LabelFor(model => model.CompanyName) <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="col-md-12">
+                                            @Html.EditorFor(model => model.CompanyName, new { htmlAttributes = new { @class = "form-control form-control-line" } })
+                                            @Html.ValidationMessageFor(model => model.CompanyName, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-12">Company Type <span class="text-danger">*</span></label>
+                                        <div class="col-sm-12">
+                                            @Html.DropDownListFor(model => model.CompanyTypeID, new SelectList(ViewBag.CompanyTypeID, "CompanyTypeID", "CompanyType"), "Company Type", new { @class = "form-control form-control-line" })
+                                            @Html.ValidationMessageFor(model => model.CompanyTypeID, "", new { @class = "text-danger" })
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-12">
+                                            @Html.LabelFor(model => model.StoreName) <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="col-md-12">
+                                            @Html.EditorFor(model => model.StoreName, new { htmlAttributes = new { @class = "form-control form-control-line" } })
+                                            @Html.ValidationMessageFor(model => model.StoreName, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-12">
+                                            @Html.LabelFor(model => model.StoreURL) <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="col-md-12">
+                                            www. @Html.EditorFor(model => model.StoreURL, new { htmlAttributes = new { @class = "form-control form-control-line custom-url-box" } }) .crastores.com
+                                            @Html.ValidationMessageFor(model => model.StoreURL, "", new { @class = "text-danger" })
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-12">
+                                            @Html.LabelFor(model => model.SalesPerson) <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="col-md-12">
+                                            @Html.EditorFor(model => model.SalesPerson, new { htmlAttributes = new { @class = "form-control form-control-line" } })
+                                            @Html.ValidationMessageFor(model => model.SalesPerson, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <h3>Store Contact Details</h3>
+                                    <hr />
+                                    <div class="form-group">
+                                        <label class="col-md-12">
+                                            @Html.LabelFor(model => model.ServiceEmail) <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="col-md-12">
+                                            @Html.EditorFor(model => model.ServiceEmail, new { htmlAttributes = new { @class = "form-control form-control-line" } })
+                                            @Html.ValidationMessageFor(model => model.ServiceEmail, "", new { @class = "text-danger" })
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-12">
+                                            @Html.LabelFor(model => model.ServicePhone) <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="col-md-12">
+                                            @Html.EditorFor(model => model.ServicePhone, new { htmlAttributes = new { @class = "form-control form-control-line" } })
+                                            @Html.ValidationMessageFor(model => model.ServicePhone, "", new { @class = "text-danger" })
+                                        </div>
+
+                                    </div>
+                                   
+                                    <div class="form-group">
+                                        <label class="col-md-12">
+                                            @Html.LabelFor(model => model.Order_Notification_Name) <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="col-md-12">
+                                            @Html.EditorFor(model => model.Order_Notification_Name, new { htmlAttributes = new { @class = "form-control form-control-line" } })
+                                            @Html.ValidationMessageFor(model => model.Order_Notification_Name, "", new { @class = "text-danger" })
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-12">
+                                            @Html.LabelFor(model => model.Order_Notification_Email) <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="col-md-12">
+                                            @Html.EditorFor(model => model.Order_Notification_Email, new { htmlAttributes = new { @class = "form-control form-control-line" } })
+                                            @Html.ValidationMessageFor(model => model.Order_Notification_Email, "", new { @class = "text-danger" })
+                                        </div>
+
+                                    </div>
+                                    <h3>Store Status</h3>
+                                    <hr />
+                                    <div class="form-group col-12">
+                                        <label class="col-md-3 float-l">
+                                            @Html.LabelFor(model => model.IsActive)
+                                        </label>
+                                        <div class="col-md-2 float-l">
+                                            @Html.RadioButtonFor(model => model.IsActive, "true") Yes
+                                           
+                                        </div>
+                                        <div class="col-md-2 float-l">
+                                            @Html.RadioButtonFor(model => model.IsActive, "false") No
+                                           
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-12">
+                                        <label class="col-md-3 float-l">
+                                            @Html.LabelFor(model => model.PriceDispay)
+                                        </label>
+                                        <div class="col-md-2 float-l">
+                                            @Html.RadioButtonFor(model => model.PriceDispay, "true") Yes
+                                            
+                                        </div>
+                                        <div class="col-md-2 float-l">
+                                            @Html.RadioButtonFor(model => model.PriceDispay, "false") No
+                                           
+                                        </div> 
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-12">
+                                            @Html.LabelFor(model => model.StoreActiveDate) <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="col-md-12">
+                                            @Html.TextBoxFor(model => model.StoreActiveDate, new { @type = "date", @onChange = "calculateDiff()", @class = "form-control form-control-line" })
+                                            @Html.ValidationMessageFor(model => model.StoreActiveDate, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-12">
+                                            @Html.LabelFor(model => model.StoreDeactiveDate) <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="col-md-12">
+                                            @Html.TextBoxFor(model => model.StoreDeactiveDate, new { @type = "date", @onChange = "calculateDiff()", @class = "form-control form-control-line" })
+                                            @Html.ValidationMessageFor(model => model.StoreDeactiveDate, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-12 m-b-10">
+                                            @Html.LabelFor(model => model.AboutText)
+                                        </label>
+                                        <div class="col-md-12">
+                                            @Html.TextAreaFor(model => model.AboutText, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.AboutText, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5 col-sm-12">
+                            <div class="card">
+                                <div class="card-block">
+                                    <div class="form-group">
+                                        <h3>Browse Logo</h3>  
+                                        <hr/>
+                                        <div class="col-md-12 store-logo-upload text-center">
+                                            <img src="@Domainpath/Content/Images/emptyLogo.jpg" alt="Image" width="auto" height="auto" id="pic">
+                                            <input type="file" id="photoA" name="fileName" class="choose-input">
+                                        </div>
+                                    </div>
+									<div class="col-md-12">
+									<h5>Note: Logo size should be 300px width and 120px height. Accepted formats are JPEG and PNG.</h5>
+									 </div>
+                                    <hr/>
+                                    <div class="col-md-12 text-right">
+                                        <div class="form-group">
+                                            <input type="submit" value="Save" class="btn btn-success" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+
+<script>
+    function calculateDiff() {
+        
+        var StoreActiveDate = new Date($('#StoreActiveDate').val());
+
+        var StoreDeactiveDate = new Date($('#StoreDeactiveDate').val());
+
+        if (StoreDeactiveDate < StoreActiveDate) {
+            swal("Alert !", "Store active date should be less than store de-active date", "error");
+        }
+    }
+
+</script>

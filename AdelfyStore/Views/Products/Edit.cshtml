@@ -1,0 +1,196 @@
+﻿@model AdelfyStore.Models.TblProduct
+@using AdelfyStore.Models;
+@{ var Domainpath = BaseUtil.GetWebConfigValue("DomainUrl").ToString();}
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="container-fluid">
+    <div class="row page-titles">
+        <div class="col-md-5 col-8 align-self-center">
+            <h3 class="text-themecolor m-b-0 m-t-0">Update Product </h3>
+            <!-- <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                <li class="breadcrumb-item active">Add Store</li>
+            </ol> -->
+        </div>
+        <div class="col-md-7 col-4 text-right">
+            <a href="@Url.Action("Index", "Products", new { id = Convert.ToInt32(BaseUtil.GetSessionValue(AdminInfo.StoreID.ToString())) })" class="btn waves-effect waves-light btn-danger m-r-5 hidden-sm-down"> Back To List</a>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-block">
+            <div class="row">
+                @using (Html.BeginForm("Edit", "Products", FormMethod.Post, new { @class = "form-horizontal form-material", enctype = "multipart/form-data" }))
+                {<input type="hidden" name="StoreId" value="@Model.StoreId" />
+                    
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.Hidden("PreviousSlugURL", Model.SlugURL)
+                    @Html.HiddenFor(model => model.ProductID)
+                    @Html.HiddenFor(model => model.CreatedBy)
+                    @Html.HiddenFor(model => model.CreatedDate)
+                    @Html.HiddenFor(model => model.IsDelete)
+                    @Html.HiddenFor(model => model.StoreId)
+                    @Html.HiddenFor(model => model.PriceDispay)
+                    <div class="p-l-10 p-b-30"><span>All (*) marked fields are mandatory</span></div>
+                    <div class="form-group">
+                        <label class="col-md-12">
+                            @Html.LabelFor(model => model.productTitle)  <span class="text-danger">*</span>
+                        </label>
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.productTitle, new { htmlAttributes = new { @class = "form-control form-control-line", @onblur = "slugify(productTitle,SlugURL)" } })
+                            @Html.ValidationMessageFor(model => model.productTitle, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-12">
+                            @Html.LabelFor(model => model.SlugURL)  <span class="text-danger">*</span>
+                        </label>
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.SlugURL, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.SlugURL, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-12"> @Html.LabelFor(model => model.srNumber) <span class="text-danger">*</span></label>
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.srNumber, new { htmlAttributes = new {  @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.srNumber, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-12">@Html.LabelFor(model => model.ProductCategoryId)<span class="text-danger">*</span></label>
+                        <div class="col-sm-12">
+                            @{if (Model != null && Model.ProductCategoryId != null && Model.ProductCategoryId != 0)
+                                {
+                                    @Html.DropDownList("ProductCategoryId", null, htmlAttributes: new { @class = "form-control" })
+                                }
+                                else
+                                {
+                                    @Html.DropDownListFor(model => model.ProductCategoryId, new SelectList(ViewBag.ProductCategoryId, "ProductCategoryId", "CategoryName"), " Category ", new { @class = "form-control form-control-line" })
+                                }
+                            }
+                            @Html.ValidationMessageFor(model => model.ProductCategoryId, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-12"> @Html.LabelFor(model => model.SupplierId) <span class="text-danger">*</span></label>
+                        <div class="col-sm-12">
+                            @{if (Model != null && Model.SupplierId != null && Model.SupplierId != 0)
+                                {
+                                    @Html.DropDownList("SupplierId", null, htmlAttributes: new { @class = "form-control" })
+                                }
+                                else
+                                {
+                                    @Html.DropDownListFor(model => model.SupplierId, new SelectList(ViewBag.SupplierId, "SupplierId", "SupplierName"), " Supplier ", new { @class = "form-control form-control-line" })
+                                }
+                            }
+
+                            @Html.ValidationMessageFor(model => model.SupplierId, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-12"> @Html.LabelFor(model => model.sku)<span class="text-danger">*</span></label>
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.sku, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.sku, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-12"> @Html.LabelFor(model => model.Price)<span class="text-danger">*</span></label>
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-12"> @Html.LabelFor(model => model.descriptionHtml)<span class="text-danger">*</span></label>
+
+                        <div class="col-md-12">
+                            @Html.TextAreaFor(model => model.descriptionHtml, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.descriptionHtml, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-12"> @Html.LabelFor(model => model.AdditionalInforamtion)<span class="text-danger">*</span></label>
+
+                        <div class="col-md-12">
+                            @Html.TextAreaFor(model => model.AdditionalInforamtion, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.AdditionalInforamtion, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="col-sm-3 float-l">@Html.LabelFor(model => model.IsActive) </label>
+                        <div class="col-md-9">
+                            @Html.CheckBoxFor(model => model.IsActive, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+
+                    <div class="col-md-12"><hr /></div>
+                    <div class="col-md-12">
+                        <h3>Product Attribute</h3>
+                        <hr />
+                    </div>
+                    @Html.Action("Partial_productAttributeEdit", new { id = Model.ProductID })
+
+                    <div class="col-sm-12">
+                        <div class="form-group text-right">
+                            <input type="submit" value="Update" class="btn btn-success" onclick="addvalue()" />
+                        </div>
+                    </div>
+                    <input type="hidden" name="Attributes" id="hdnFinalAttributes" />
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    function addvalue() {
+        debugger
+        var cou = document.getElementById('toatlAttributeCount').value;
+        
+        for (var k = 1; k <=cou; k++) {
+            var selO = document.getElementById('select_'+k);
+            var hdnproductCategoryID = document.getElementById('hdnAttribute_'+k);
+            var selValues = [];
+            var v = '';
+            for (i = 0; i < selO.length; i++) {
+                if (selO.options[i].selected) {
+                    selValues.push(selO.options[i].value);
+                    v = v + selO.options[i].value + ',';
+                }
+            }
+            hdnproductCategoryID.value = v;
+        }
+
+        debugger
+    $('#hdnFinalAttributes').val();
+    var txt = "";
+    for (var k = 1; k <=cou; k++) {
+        var name_ = document.getElementById('hdnAttribute_' + k);
+        var name = name_.name;
+        var val = document.getElementById('hdnAttribute_' + k).value;
+        txt = txt + name + "!" + val + "$";
+    }
+    $('#hdnFinalAttributes').val(txt);
+    }
+</script>
+<script type="text/javascript">
+    $('#srNumber').change(function () {
+        if ($('#srNumber').val() < 1) {
+            $('#srNumber').val("0")
+        }
+    });
+</script>

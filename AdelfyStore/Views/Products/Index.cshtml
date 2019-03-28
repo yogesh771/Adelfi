@@ -1,0 +1,127 @@
+﻿@model IEnumerable<AdelfyStore.Models.sp_productDetails_Result>
+@using AdelfyStore.Models;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+
+    <div class="row page-titles">
+        <div class="col-md-5 col-8 align-self-center">
+            <h3 class="text-themecolor m-b-0 m-t-0">Products</h3>
+            <!-- <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                <li class="breadcrumb-item active">Products</li>
+            </ol> -->
+        </div>
+        <div class="col-md-7 col-4 text-right">
+            <a href="@Url.Action("Create", "Products")" class="btn waves-effect waves-light btn-danger hidden-sm-down m-r-5"> Add Product</a>
+			<a href="@Url.Action("Edit", "StoreInformations", new { id = Convert.ToInt32(BaseUtil.GetSessionValue(AdminInfo.StoreID.ToString())) })" class="btn waves-effect waves-light btn-danger hidden-sm-down"> Back To Store</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- column -->
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-block">
+                    <div class="table-responsive">
+					@{
+                            if (Model.Count() == 0)
+                            {
+                                <h4>No records found</h4>
+                            }
+                            else
+                            {
+                        <table id="MyTable" class="table table-border table-hover">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Order No
+                                    </th>
+                                    <th>
+                                        Product Name
+                                    </th>
+                                    <th>
+                                       SKU
+                                    </th>
+                                    <th>
+                                        Store Name
+                                    </th>
+                                    <th>
+                                        Category Name
+                                    </th>
+                                    <th>
+                                        Supplier Name
+                                    </th>
+
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            @{
+                                var a = Model.Count();
+
+                            }
+                            <tbody>
+                                @if (a == 0)
+                                {
+                                    <tr>
+                                        <td colspan="10">
+                                            No Result Found
+                                        </td>
+                                    </tr>
+                                }
+
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @{ if (item.srNumber!=1000)
+                                                {
+                                                    @Html.DisplayFor(modelItem => item.srNumber)
+                                                }
+                                            }
+                                        </td>
+                                         <td>
+                                            @Html.DisplayFor(modelItem => item.productTitle)
+                                        </td>
+                                         <td>
+                                             @Html.DisplayFor(modelItem => item.sku)
+                                         </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.StoreName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.CategoryName)
+                                        </td>
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.SupplierName)
+                                        </td>
+                                      
+                                        <td>
+
+                                            <a class="btn waves-effect waves-light float-l m-r-5 btn-info hidden-sm-down" href="@Url.Action("Details", "Products", new { id = item.productId })"><i class="fas fa-eye"></i></a>
+                                            <!-- <a class="btn waves-effect waves-light m-r-5 btn-success hidden-sm-down" href="@Url.Action("Edit", "Products", new { id = item.productId })"><i class="fas fa-pencil-alt"></i></a> -->
+                                            <a class="btn waves-effect waves-light btn-danger hidden-sm-down" href="javascript:void(0)" onclick="RecordDelete(@item.productId,'TblProducts')"><i class="fas fa-trash-alt"></i></a>
+                                            @{ var url = "http://" + item.storeurl + ".crastores.com/product-details/"+ item.slugurl;}
+                                            <a class="btn waves-effect waves-light btn-info hidden-sm-down m-r-5" target="_blank" href=@url><i class="fas fa-globe"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+						}
+						}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function(){
+        $("#MyTable").dataTable();
+    })
+</script>

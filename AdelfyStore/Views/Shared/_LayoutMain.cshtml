@@ -1,0 +1,573 @@
+﻿<!DOCTYPE html>
+@using AdelfyStore.Models;
+@{ var Domainpath =  BaseUtil.GetApplicationPath();
+    var storeName = BaseUtil.GetSessionValue(AdminInfo.storeName.ToString());}
+<html lang="en">
+<head>
+    <title>@storeName - Adelfi</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="~/images/icons/logo-2.jpg" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="@Domainpath/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="@Domainpath/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="@Domainpath/fonts/themify/themify-icons.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="@Domainpath/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="@Domainpath/fonts/elegant-font/html-css/style.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="@Domainpath/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="@Domainpath/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="@Domainpath/vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="@Domainpath/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="@Domainpath/vendor/daterangepicker/daterangepicker.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="@Domainpath/vendor/slick/slick.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="@Domainpath/vendor/lightbox2/css/lightbox.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="@Domainpath/css/util.css">
+    <link rel="stylesheet" type="text/css" href="@Domainpath/css/main.css">
+	    <!-- <link href="~/vendor/sweetalert/sweetalert.css" rel="stylesheet" /> -->
+    <!-- <script src="~/vendor/sweetalert/sweetalert.min.js"></script> -->
+    <!--===============================================================================================-->
+</head>
+<body class ="animsition">
+
+    <!-- Header -->
+    <header class="header1">
+        <!-- Header desktop -->
+        <div class="container-menu-header">
+
+            <div class="wrap_header">
+                <!-- Header Icon -->
+                <div class="float-l custom">
+                    <p>Call: <a href="tel:@BaseUtil.GetSessionValue(AdminInfo.ServicePhone.ToString())">@BaseUtil.GetSessionValue(AdminInfo.ServicePhone.ToString())</a> | Email: <a href="mailto:@BaseUtil.GetSessionValue(AdminInfo.ServiceEmail.ToString())">@BaseUtil.GetSessionValue(AdminInfo.ServiceEmail.ToString())</a></p>
+                </div>
+                <div class="header-icons">
+
+                    <div class="header-wrapicon2">
+                        <img src="@Domainpath/images/icons/icon-header-02.png" id="header-icon1_" class="header-icon1 js-show-header-dropdown" alt="ICON">
+                        <span class="header-icons-noti" id="SpnanotiFication">0</span>
+
+                        <!-- Header cart noti -->
+                        <div class="header-cart header-dropdown">
+                            <div id="viewCartData"></div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="logo-part">
+                <a class="main-logo" href="@Url.Action("Index","Client")">
+                    <img src="@Domainpath/@BaseUtil.GetSessionValue(AdminInfo.Logo.ToString())" alt="IMG-LOGO">
+                </a>
+                <a class="client-logo" href="@Url.Action("Index","Client")">
+                    <img src="@Domainpath/images/icons/logo-2.jpg" alt="IMG-LOGO">
+                </a>
+            </div>
+        </div>
+
+        <!-- Header Mobile -->
+        <div class="wrap_header_mobile">
+            <!-- Logo moblie -->
+            <a class="logo-mobile" href="@Url.Action("Index","Client")">
+                    <img src="@Domainpath/@BaseUtil.GetSessionValue(AdminInfo.Logo.ToString())" alt="IMG-LOGO">
+            </a>
+            <div class="wrap_menu">
+                <a  class="logo" href="@Url.Action("Index","Client")">
+                    <img src="@Domainpath/images/icons/logo-2.jpg" alt="IMG-LOGO">
+                </a>
+            </div>
+
+            <!-- Button show menu -->
+            <div class="btn-show-menu">
+                <!-- Header Icon mobile -->
+                <div class="header-icons-mobile">
+                    <div class="header-wrapicon2">
+                        <img src="@Domainpath/images/icons/icon-header-02.png" class="header-icon1 js-show-header-dropdown" alt="ICON">
+                        <span class="header-icons-noti"  id="SpnanotiFicationMobile">0</span>
+
+                        <!-- Header cart noti -->
+                        <div class="header-cart header-dropdown">
+                            <div id="viewCartDataMobile"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    @RenderBody()
+    <!-- Footer -->
+    <footer class="bg6 float-l w-full p-t-20 p-b-20 p-l-45 p-r-45">
+        <div class="flex-w p-b-20">
+            <div class="w-size100 p-t-30 p-l-15 p-r-15 respon3">
+                <h4 class="s-text12 p-b-30">
+                    GET IN TOUCH
+                </h4>
+
+                <div class="float-l">
+                    <p class="s-text20 float-l">
+
+                        Call: <a href="tel:@BaseUtil.GetSessionValue(AdminInfo.ServicePhone.ToString())">@BaseUtil.GetSessionValue(AdminInfo.ServicePhone.ToString())</a><br />
+
+                        Email: <a href="mailto:@BaseUtil.GetSessionValue(AdminInfo.ServiceEmail.ToString())">@BaseUtil.GetSessionValue(AdminInfo.ServiceEmail.ToString())</a>
+                    </p>
+                </div>
+                @*<div class="float-r t-right">
+                    <p class="s-text20 float-r">
+                        Powered by:
+                        <a class="custom-css" href="https://www.camerareadyart.com" target="_blank"><img src="@Domainpath/images/icons/logo.svg" alt="CameraReadyArt Inc." /></a>
+                    </p>
+                </div>*@
+            </div>
+
+        </div>
+
+        <div class="t-center p-l-15 p-r-15">
+            <div class="t-center s-text8 p-t-5">
+                Copyright © 2019 CRAStores.com | Powered by <a href="javascript:void(0)">CAMERAReadyArt.com</a> | All rights reserved   
+</div>
+        </div>
+    </footer>
+
+
+
+    <!-- Back to top -->
+    <div class="btn-back-to-top bg0-hov" id="myBtn">
+        <span class="symbol-btn-back-to-top">
+            <i class="fa fa-angle-double-up" aria-hidden="true"></i>
+        </span>
+    </div>
+
+    <!-- Container Selection1 -->
+    <div id="dropDownSelect1"></div>
+
+    <div id="dropDownSelect2"></div>
+
+    <!--===============================================================================================-->
+    <script type="text/javascript" src="@Domainpath/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script type="text/javascript" src="@Domainpath/vendor/animsition/js/animsition.min.js"></script>
+    <!--===============================================================================================-->
+    <script type="text/javascript" src="@Domainpath/vendor/bootstrap/js/popper.js"></script>
+    <script type="text/javascript" src="@Domainpath/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="@Domainpath/Scripts/jquery.validate.min.js"></script>
+    <script src="@Domainpath/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <!--===============================================================================================-->
+    <script type="text/javascript" src="@Domainpath/vendor/select2/select2.min.js"></script>
+    <script type="text/javascript">
+        $(".selection-1").select2({
+            minimumResultsForSearch: 20,
+            dropdownParent: $('#dropDownSelect1')
+        });
+    </script>
+    <!--===============================================================================================-->
+    <script type="text/javascript" src="@Domainpath/vendor/slick/slick.min.js"></script>
+    <script type="text/javascript" src="@Domainpath/js/slick-custom.js"></script>
+    <!--===============================================================================================-->
+    <script type="text/javascript" src="@Domainpath/vendor/countdowntime/countdowntime.js"></script>
+    <!--===============================================================================================-->
+    <script type="text/javascript" src="@Domainpath/vendor/lightbox2/js/lightbox.min.js"></script>
+    <!--===============================================================================================-->
+    <!-- <script type="text/javascript" src="@Domainpath/vendor/sweetalert/sweetalert.min.js"></script> -->
+
+
+    <!--===============================================================================================-->
+    <script src="@Domainpath/js/main.js"></script>
+	    <!-- <link href="~/vendor/sweetalert/sweetalert.css" rel="stylesheet" /> -->
+     <script src="~/vendor/sweetalert/sweetalert.min.js"></script>
+    </body>
+</html>
+
+
+
+
+
+
+<script>
+       
+    if ('@TempData["msg"]' != '') {
+        
+            if ('@TempData["msg"]' == '5') {
+                localStorage.setItem('itemsArray', JSON.stringify([]));
+                document.getElementsByClassName('header-icons-noti').innerText = 0;
+                swal("Success !", "Order successfully placed.", "success");
+            }
+
+            else if ('@TempData["msg"]' == '6') {
+                swal("Alert !", "Due to some technical problem order not saved ", "error");
+            }
+        $.ajax({
+            type: 'GET',
+            url: "/Client/BlankTempData",          
+            success: function (result) {                
+            },           
+        })
+        }
+</script>
+
+<script type="text/javascript">
+    var SelectedAttributes = "";
+    function addtocart() {
+        
+        SelectedAttributes = "";
+        var count = $('#hdnCountAttribute').val();
+
+        for (var j = 1; j <= count; j++) {
+            var selectedVal = $("#select_" + j).val()
+            if (selectedVal == "1") {
+                var txt = $("#hdnAttribute_" + j).val();
+                SelectedAttributes = "";
+                swal("Alert !", "Please select " + txt, "error");
+                return;
+            }
+            else {
+                if (SelectedAttributes == '') {
+                    SelectedAttributes = SelectedAttributes + $("#hdnAttribute_" + j).val() + " " + ":" + " " + $("#select_" + j).val();
+                }
+                else {
+                    SelectedAttributes = SelectedAttributes + ', ' + $("#hdnAttribute_" + j).val() + " " + ":" + " " + $("#select_" + j).val();
+                }
+                
+            }
+        }
+        var title = $('#product_Title').text();
+        addProduct();
+        //swal(title, "is added to cart !", "success");
+    }
+
+    var products = JSON.parse(localStorage.getItem('itemsArray')) || [];
+
+    function addProduct() {
+        
+        var productTitle = $('#product_Title').text();
+        var productID = document.getElementById("hdnproductID").value;
+        var qt = document.getElementsByName('num-product')
+        //var product_desc = document.getElementById("product_desc").innerText;
+        var qty = qt[0].value;
+        var price = 0;
+        var hdnprice = document.getElementById("hdnprice").innerText;
+        if (hdnprice != '') {
+            price = hdnprice;
+        }
+       
+        var SelectedAttribute = SelectedAttributes;
+        var image = document.getElementById("imgurl").src
+
+
+        if (products.length > 0) {
+            for (var i = 0; i < products.length; i++) {
+                
+                if (products[i].product_id == productID && products[i].Attributes == SelectedAttribute  ) {
+                    RenderHtml(products);
+                    swal(products[i].productTitle, "is already in cart !", "success");
+                    return
+                }
+            } var newProduct = {
+                product_id: null,
+                product_desc: null,
+                product_qty: 0,
+                product_price: 0.00,
+                Attributes: SelectedAttribute,
+                productTitle: productTitle,
+                product_Totalprice: 0.00,
+                image: null
+            };
+            newProduct.product_id = productID;
+            newProduct.product_desc = null;
+            newProduct.product_qty = qty;
+            newProduct.product_price = price;
+            newProduct.image = image;
+            newProduct.product_Totalprice = price;   
+            newProduct.SelectedAttribute = SelectedAttribute,
+                newProduct.productTitle = productTitle,
+                products.push(newProduct);
+            RenderHtml(products);
+            swal(newProduct.productTitle, "is added to cart !", "success");
+        }
+        else {
+
+            var newProduct = {
+                product_id: null,
+                product_desc: null,
+                product_qty: 0,
+                product_price: 0.00,
+                product_Totalprice: 0.00,
+                Attributes: SelectedAttribute,
+                productTitle: productTitle,
+                image: null
+            };
+            newProduct.product_id = productID;
+            newProduct.product_desc = null;
+            newProduct.product_qty = qty;
+            newProduct.product_price = price;
+            newProduct.product_Totalprice = price;            
+            newProduct.image = image;
+            newProduct.SelectedAttribute = SelectedAttribute,
+                newProduct.productTitle = productTitle,
+                products.push(newProduct);
+            RenderHtml(products);
+            swal(newProduct.productTitle, "is added to cart !", "success");
+        }
+
+    }
+    $('#header-icon1_').click(function () {
+        
+        var products = JSON.parse(localStorage.getItem('itemsArray')) || [];
+        RenderHtml(products);
+    })
+    function RenderHtml(products) {
+       
+        var html = ""
+        if (products.length > 0) {
+            document.getElementById('SpnanotiFication').innerText = products.length;
+            document.getElementById('SpnanotiFicationMobile').innerText = products.length;
+            
+            html = "<ul class='header-cart-wrapitem'>"
+            for (var i = 0; i < products.length; i++) {
+                html = html + "<li class='header-cart-item'>" +
+                    "<div class='header-cart-item-img'>" +
+                    "<img src='" + products[i].image + "' alt='IMG'>" +
+                    "</div>" +
+
+                    "<div class='header-cart-item-txt'>" +
+                    "<a href='#' class='header-cart-item-name'>" + products[i].productTitle + "</a>" +
+                    " <span class='header-cart-item-name'>" + products[i].SelectedAttribute + "</span>" +                    
+                    " <span class='header-cart-item-info'> " + products[i].product_qty+" x $"+ products[i].product_price + "</span>" +                  
+                    "</div>" +
+                    "</li>"
+            }
+            html = html + "</ul>" +
+
+                "<div class='header-cart-buttons p-t-15'>" +
+                "<div class='header-cart-wrapbtn'>" +
+                "<a href='@Domainpath/Cart' class='flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4'>" +
+                "View Cart" +
+                "</a>" +
+                "</div>" +
+                "<div class='header-cart-wrapbtn'><a href='@Domainpath/Cart' class='flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4'> Check Out</a>" +
+                "</div>" +
+                "</div>"
+        }
+        else {
+            html = html + '<h5> There are no items in your cart.</h5>';
+        }
+        document.getElementById("viewCartData").innerHTML = html;
+        document.getElementById("viewCartDataMobile").innerHTML = html;
+        
+        localStorage.setItem('itemsArray', JSON.stringify(products));
+    }
+
+    function deleteProduct(product_id) {
+        
+        var products = JSON.parse(localStorage.getItem('itemsArray'));
+        for (var i = 0; i < products.length; i++) {
+            if (i == product_id) {
+                // DO NOT CHANGE THE 1 HERE
+                products.splice(i, 1);
+                if (products.length == 0) {
+                    swal("Alert !", "Cart is empty ", "warning").then((willDelete) => {
+                    if (willDelete) {
+                        window.location.href = "@Domainpath";   
+                    }
+                })
+                                          
+                }
+            }
+        }
+        document.getElementById('SpnanotiFication').innerText = products.length;
+        document.getElementById('SpnanotiFicationMobile').innerText = products.length;
+        localStorage.setItem('itemsArray', JSON.stringify(products));
+        renderpage();
+        RenderHtml(products);
+    }
+
+</script>
+
+
+<script>
+    $(document).ready(function () {
+        var products = JSON.parse(localStorage.getItem('itemsArray')) || [];
+        RenderHtml(products);
+        renderpage()
+    })
+    function renderpage() {
+        
+        var products = JSON.parse(localStorage.getItem('itemsArray')) || [];
+        var html = "";
+        var Total_Price = 0.0;
+        var price = 0.0;
+        var totalprice = 0.0;
+        for (var i = 0; i < products.length; i++) {
+            price = products[i].product_price == '' ? 0 : products[i].product_price
+            totalprice = products[i].product_Totalprice == '' ? 0 : products[i].product_Totalprice
+            Total_Price = Total_Price + parseFloat(price);
+            var 
+            html = html + "<tr class='table-row'>" +
+                "<td class='column-1'>" +
+                "<div class='cart-img-product b-rad-4 o-f-hidden'>" +
+                "<img src='" + products[i].image + "' alt='IMG-PRODUCT'>" +
+                "</div>" +
+                "</td> " +
+                "<td class='column-2'><input type='hidden' id= 'hdnProductId_" + i + "' name='hdnProductId_" + i + "' value='" + products[i].product_id + "'/>" + products[i].productTitle + "<br /><input type='hidden'  id='hdnProductattributeId_" + i + "' value='" + products[i].SelectedAttribute + "'/>" + products[i].SelectedAttribute + "</td>" +
+                "<td class='column-3'><input type='hidden' id='hdnProductPrice_" + i + "' name='hdnProductPrice_" + i + "' value='" + price+ "'/> $" + products[i].product_price + "</td>" +
+                " <td class='column-4'>" +
+                "<div class='flex-w bo5 of-hidden w-size17'>" +
+                "  <a class='btn-num-product-down color1 flex-c-m size7 bg8 eff2 sub' onclick='decrement(" + i + ")' >" +
+                "    <i class='fs-12 fa fa-minus' aria-hidden='true'></i>" +
+                " </a>" +
+
+                "  <input id='productCount_" + i + "' class='size8 m-text18 t-center num-product' type='number' name='num-product1' value='" + products[i].product_qty + "'>" +
+
+                "    <a class='btn-num-product-up color1 flex-c-m size7 bg8 eff2 'onclick='increment(" + i + ")' >" +
+                "       <i class='fs-12 fa fa-plus add' aria-hidden='true'></i>" +
+                "   </a>" +
+
+                "    </div>" +
+                " </td>" +
+                "<td class='column-5' ><input type='hidden' id='hdnTotalProductPrice_" + i + "' name='hdnTotalProductPrice_" + i + "' value='" + totalprice + "'/> $ <i id='tblTotalPrice_" + i + "'>" + products[i].product_Totalprice + " </i></td > " +
+                " <td class='column-6' > " +
+                "    <a class='btn-num-product-up color1 flex-c-m size7 bg8 eff2 'onclick='deleteProduct("+ i+ ")'>" +
+                "       <i class='fs-12 fa fa-trash' aria-hidden='true'></i>" +
+                "   </a>" +
+                "</td > " +
+                " </tr> "
+        }
+        document.getElementById("tblbodyID").innerHTML = html;
+        // document.getElementById("TotalPrice").innerHTM = "$" + Total_Price
+        calculateTotalPrice()
+        // document.getElementById("tblTotalPrice").value = Total_Price
+    }
+</script>
+
+<script>
+    function increment(i) {
+        
+        var count = $('#productCount_' + i).val()
+
+        var j = parseInt(count) + 1;
+        $('#productCount_' + i).val(j);
+        var price = document.getElementById("hdnProductPrice_" + i).value;
+        var TotalProductPrice = parseFloat(price) * j;
+        if (document.getElementById("tblTotalPrice_" + i).innerText == '') {
+
+        }
+        else {
+            document.getElementById("tblTotalPrice_" + i).innerText = TotalProductPrice
+        }
+        
+        document.getElementById("hdnTotalProductPrice_" + i).value = TotalProductPrice
+        var product_id = document.getElementById("hdnProductId_" + i).value;
+         var products = JSON.parse(localStorage.getItem('itemsArray'));
+        for (var i = 0; i < products.length; i++) {
+            if (products[i].product_id == product_id) {
+                products[i].product_Totalprice = TotalProductPrice
+                products[i].product_qty = j
+            }
+        }
+        localStorage.setItem('itemsArray', JSON.stringify(products));
+        calculateTotalPrice()
+    }
+
+    function decrement(i) {
+        
+        var count = $('#productCount_' + i).val()
+        if (count == 1) { } else {
+            var j = parseInt(count) - 1;
+            $('#productCount_' + i).val(j);
+            var price = document.getElementById("hdnProductPrice_" + i).value;
+            var TotalProductPrice = parseFloat(price) * j;
+            if (document.getElementById("tblTotalPrice_" + i).innerText == '') {
+
+            }
+            else {
+                document.getElementById("tblTotalPrice_" + i).innerText = TotalProductPrice
+            }
+            document.getElementById("hdnTotalProductPrice_" + i).value = TotalProductPrice
+            var product_id = document.getElementById("hdnProductId_" + i).value;
+            for (var i = 0; i < products.length; i++) {
+                if (products[i].product_id == product_id) {
+                    products[i].product_Totalprice = TotalProductPrice
+                    products[i].product_qty = j
+                }
+            }
+            localStorage.setItem('itemsArray', JSON.stringify(products));
+            calculateTotalPrice()
+        }
+    }
+
+    function calculateTotalPrice() {
+        
+        var TotalPRice = 0;
+        for (var i = 0; i < products.length; i++) {
+            var v = document.getElementById("hdnTotalProductPrice_" + i).value
+            TotalPRice = TotalPRice + parseFloat(v);
+        }
+        document.getElementById("CartSubTotalPrice").innerText = TotalPRice
+        document.getElementById("carTotalPrice").innerText = TotalPRice
+    }
+</script>
+
+
+
+<script>
+    $('#formSubmitButton').click(function (e) {
+
+        e.preventDefault();
+        var ProductId = "";
+        var productAttribute = "";
+        var ProductPrice = "";
+        var productQuantity = "";
+        var products = JSON.parse(localStorage.getItem('itemsArray'));
+        for (var i = 0; i < products.length; i++) {
+            ProductId = ProductId + document.getElementById("hdnProductId_" + i).value + ";";
+            productAttribute = productAttribute + document.getElementById("hdnProductattributeId_" + i).value + ";";
+            ProductPrice = ProductPrice + document.getElementById("hdnTotalProductPrice_" + i).value + ";";
+            productQuantity = productQuantity + document.getElementById("productCount_" + i).value + ";";
+        }
+        $('#hdnToatlCount').val(products.length);
+        $('#ProductId').val(ProductId);
+        $('#productAttribute').val(productAttribute);
+        $('#ProductPrice').val(ProductPrice);
+        $('#productQuantity').val(productQuantity);
+        $('#TotalSubPrice').val(document.getElementById("CartSubTotalPrice").innerText);
+        $('#TotalPrice').val(document.getElementById("carTotalPrice").innerText);
+       
+        var hdnToatlCount = $("#hdnToatlCount").val()
+        if (hdnToatlCount == "") {
+            swal("Alert !", "No product in your cart ", "error");
+            return;
+        }
+         $("#frm").validate();
+        if ($('#frm').valid()) {
+            swal({
+                title: "Confirmation !",
+                text: "You want to place this order!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-danger",
+                confirmButtonText: "Place order !",
+                closeOnConfirm: false
+            }).then((willDelete) => {
+                    if (willDelete) {
+                        $('#frm').submit();
+                    }
+                })
+        }
+       
+    })
+</script>
+
+
+
+

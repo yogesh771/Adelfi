@@ -1,0 +1,53 @@
+﻿
+@model List<AdelfyStore.Models.TblAttribute>
+@using AdelfyStore.Models;
+
+@{
+    var i = 1;
+    foreach (var attribute in Model)
+    {
+
+
+        <div class="col-md-12">
+            <label class="m-b-10 control-label">
+            @{ if (attribute.MapUnit != null)
+                {
+                    @attribute.Attribute <span> (@attribute.MapUnit)</span>
+                }
+                else
+                {
+                    @attribute.Attribute
+                }
+            }
+            </label>
+        </div>
+
+            var values = (dynamic)null;
+            <input name="@attribute.AttributeId" type="hidden" id="hdnAttribute_@i" />
+            <div class="col-md-6 m-b-20">
+                <select class="selection-2 ms-options-wrap selectpicker form-control form-control-line" multiple data-live-search="true" id="select_@i">
+
+                    @foreach (var productAttribute in (IEnumerable<TblAttribute>)Model.Where(e => e.AttributeId == attribute.AttributeId))
+                    {
+                        values = (productAttribute.TblAttributeValues.OrderBy(e=>e.orderNo).Select(e => e.value));
+
+                        foreach (var v in values)
+                        {
+                            <option value="@v">@v</option>
+                        }
+
+                    }
+                </select>
+            </div>
+        i = i + 1;
+    }
+
+}
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.8.1/css/bootstrap-select.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.8.1/js/bootstrap-select.js"></script>
+
+
+<script>
+    $('select.selectpicker').selectpicker();
+</script>
